@@ -4,9 +4,10 @@ BOOTCAMPERS TO COMPLETE.
 Detects colours on a map of landing pads.
 """
 
-from pathlib import Path
 import cv2
 import numpy as np
+from pathlib import Path
+
 
 class DetectBlue:
     """
@@ -29,7 +30,9 @@ class DetectBlue:
         """
         assert class_create_private_key is DetectBlue.__create_key, "Use create() method"
 
-    def run(self, image: str, output_path: Path, return_mask: bool = False) -> None | np.ndarray:
+    def run(
+        self, image: str, output_path: Path, return_mask: bool = False
+    ) -> None | np.ndarray:
         """
         Detects blue from an image and shows the annotated result.
 
@@ -47,14 +50,14 @@ class DetectBlue:
         hsv = cv2.cvtColor(img, cv2.COLOR_BGR2HSV)
 
         # Set upper and lower bounds for colour detection, this is in HSV
-        lower_blue = np.array([90,60,40])
-        upper_blue = np.array([120,255,255])
+        lower_blue = np.array([90, 60, 40])
+        upper_blue = np.array([120, 255, 255])
 
         # Apply the threshold for the colour detection
         mask = cv2.inRange(hsv, lower_blue, upper_blue)
 
         # Shows the detected colour from the mask
-        res = cv2.bitwise_and(img, img, mask = mask)
+        res = cv2.bitwise_and(img, img, mask=mask)
 
         # ============
         # ↑ BOOTCAMPERS MODIFY ABOVE THIS COMMENT ↑
@@ -62,7 +65,7 @@ class DetectBlue:
 
         # Annotate the colour detections
         contours, _ = cv2.findContours(mask, cv2.RETR_TREE, cv2.CHAIN_APPROX_SIMPLE)
-        
+
         cv2.drawContours(img, contours, -1, (0, 255, 0), 2)
 
         # Show the annotated detection!
@@ -96,7 +99,9 @@ class DetectRed:
         """
         assert class_create_private_key is DetectRed.__create_key, "Use create() method"
 
-    def run(self, image: str, output_path: Path, return_mask: bool = False) -> None | np.ndarray:
+    def run(
+        self, image: str, output_path: Path, return_mask: bool = False
+    ) -> None | np.ndarray:
         """
         Detects red from an image and shows the annotated result.
 
@@ -124,8 +129,7 @@ class DetectRed:
         mask_2 = cv2.inRange(hsv, lower_red_2, upper_red_2)
         mask = cv2.bitwise_or(mask_1, mask_2)
         # Shows the detected colour from the mask
-        res = cv2.bitwise_and(img, img, mask =mask)
-
+        res = cv2.bitwise_and(img, img, mask=mask)
         # Annotate the colour detections
         # replace the '_' parameter with the appropiate variable
         contours, _ = cv2.findContours(mask, cv2.RETR_TREE, cv2.CHAIN_APPROX_SIMPLE)
