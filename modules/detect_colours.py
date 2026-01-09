@@ -4,9 +4,9 @@ BOOTCAMPERS TO COMPLETE.
 Detects colours on a map of landing pads.
 """
 
+from pathlib import Path
 import cv2
 import numpy as np
-from pathlib import Path
 
 
 class DetectBlue:
